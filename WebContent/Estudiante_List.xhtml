@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<style type="text/css">
+.tableUpdated {
+	width: 100% !important;
+	margin: 17px 55px 0 !important;
+}
+
+.customMargin {
+	margin-left: 10px;
+}
+</style>
+</h:head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 mr-auto">
+				<f:view>
+					<h:form>
+						<h:commandButton action="#{estudianteBean.newEstudiante}"
+							value="Add New Estudent" styleClass="btn btn-primary"></h:commandButton>
+					</h:form>
+					<h:dataTable var="s" value="#{estudianteBean.getAll()}" border="1"
+						styleClass="table table-stripped table-bordered tableUpdated">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Id"></h:outputText>
+							</f:facet>
+							<h:outputText id="id" value="#{s.id}"></h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Nombres"></h:outputText>
+							</f:facet>
+							<h:outputText id="name" value="#{s.nombres}"></h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Carrera"></h:outputText>
+							</f:facet>
+							<h:outputText id="carrera" value="#{s.carrera.nombre}"></h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Manage"></h:outputText>
+							</f:facet>
+							<h:form>
+								<h:commandButton action="#{estudianteBean.editEstudiante}"
+									value="Edit" styleClass="btn btn-warning btn-sm">
+									<f:setPropertyActionListener value="#{s.id}"
+										target="#{estudianteBean.estudiante.id}" />
+								</h:commandButton>
+								<h:commandButton action="#{estudianteBean.deleteEstudiante}"
+									value="Delete" styleClass="btn btn-danger btn-sm customMargin">
+									<f:setPropertyActionListener value="#{s.id}"
+										target="#{estudianteBean.estudiante.id}" />
+								</h:commandButton>
+							</h:form>
+						</h:column>
+					</h:dataTable>
+				</f:view>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
